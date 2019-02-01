@@ -1,0 +1,266 @@
+<html>
+<body>
+    <div id="container"></div>
+
+    <script type="application/javascript">
+      var rules = [
+        {
+          rule : "Code MUST conform to PSR-2",
+          example : null
+        },
+        {
+          rule : "PSR-4 MUST be used for autoloading",
+          example : null
+        },
+        {
+          rule : "The top of every PHP file MUST include these 3 lines",
+          example : [
+            "&lt;?php",
+            "declare(strict_types = 1);",
+            "<span class='comment'>// blank line</span>"
+          ]
+        },
+        {
+          rule : "In a comma separated list, the final comma MUST NOT be omitted.",
+          example : [
+            "$array = [",
+            "&nbsp;&nbsp;&nbsp;$one,",
+            "&nbsp;&nbsp;&nbsp;$two,",
+            "&nbsp;&nbsp;&nbsp;$three,",
+            "];"
+          ]
+        },
+        {
+          rule : "A method's return type declaration MUST be formatted in the following way: <ul><li>a colon</li><li>a space</li><li>the type</li></ul>",
+          example : [
+            "public function aMethod(): string;"
+          ]
+        },
+        {
+          rule : "Nullable type declarations MUST NOT have a space between the question mark and the type",
+          example : [
+            "public function aMethod(?NullableType $aThing): ?string;"
+          ]
+        },
+        {
+          rule : "Methods SHOULD include a return type declaration",
+          example : null
+        },
+        {
+          rule : "Method arguments SHOULD have a type declaration",
+          example : null
+        },
+        {
+          rule : "Methods that don't return a value should declare a return type of <span class='code-inline'>void</span> and include a <span class='code-inline'>return</span> statement",
+          example : [
+            "public function returnsNoValue(): void",
+            "{",
+            "&nbsp;&nbsp;&nbsp;$this->doSomething();",
+            "&nbsp;&nbsp;&nbsp;return;",
+            "}"
+          ]
+        },
+        {
+          rule : "Classes SHOULD be declared <span class='code-inline'>final</span>",
+          example : null
+        },
+        {
+          rule : "Composition SHOULD be preferred over inheritance",
+          example : null
+        },
+        {
+          rule : "If a class is being designed to be extended, consider using an abstract class because 1) Using the word 'Abstract' notates that intent. 2) The areas where the class are designed to be extended are explicitly defined.",
+          example : null
+        },
+        {
+          rule : "Abstract classes MUST have the word 'Abstract' prepended to the name",
+          example : [
+            "abstract class AbstractMessage",
+            "{",
+            "...",
+            "}",
+            "<span class='comment'>// NOT</span>",
+            "abstract class Message",
+            "{",
+            "...",
+            "}"
+          ]
+        },
+        {
+          rule : "An inheritance chain MUST NOT be more than one link long. i.e. a class that extends another class cannot be extended again",
+          example : null
+        },
+        {
+          rule : "If adding a PHP DocBlock adds no additional useful knowledge about a method (e.g. all argument and return types have been declared) then a DocBlock SHOULD NOT be used",
+          example : null
+        },
+        {
+          rule : "Commented out code SHOULD NOT be committed",
+          example : null
+        },
+        {
+          rule : "In a list of variable assignments, equal signs MUST NOT be aligned",
+          example : [
+            "$one = 'one';",
+            "$twoPlusTwo = 'four';",
+            "<span class='comment'>// NOT</span>",
+            "$one &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 'one';",
+            "$twoPlusTwo = 'four';"
+          ]
+        },
+        {
+          rule : "There MUST NOT be any author comments at the top of a class",
+          example : null
+        },
+        {
+          rule : "When instantiating a new class with no constructor arguments, parentheses MUST be omitted",
+          example : [
+            "$aggregateTranslator = new AggregateTranslator;"
+          ]
+        },
+        {
+          rule : "An interface MUST NOT have the word 'Interface' appended to its name",
+          example : [
+            "interface PersistenceDriver",
+            "{",
+            "...",
+            "}",
+            "<span class='comment'>// NOT</span>",
+            "interface PersistenceDriverInterface",
+            "{",
+            "...",
+            "}"
+          ]
+        }
+      ];
+
+      var previouslySelected = [];
+      var lastSelected = null;
+
+      var getN = function() {
+        if(previouslySelected.length == rules.length) {
+          previouslySelected = [lastSelected];
+        }
+
+        var n = Math.floor(Math.random() * rules.length);
+        for(var i = 0; i < previouslySelected.length; i++) {
+          if(previouslySelected[i] == n) {
+            return getN();
+          }
+        }
+
+        previouslySelected.push(n);
+        lastSelected = n;
+        return n;
+      };
+
+      var setRule = function() {
+
+        var which = rules[getN()];
+
+        var rule = document.createElement('div');
+        rule.className = 'rule';
+        rule.innerHTML = which.rule;
+
+        var ruleWrapper = document.createElement('div');
+        ruleWrapper.appendChild(rule);
+        if(which.example) {
+            var example = document.createElement('ul');
+            example.className = 'code';
+            for(var i = 0; i < which.example.length; i++) {
+              var li = document.createElement('li');
+              li.innerHTML = which.example[i];
+              example.appendChild(li);
+            }
+            ruleWrapper.appendChild(example);
+        }
+
+        var container = document.getElementById('container');
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
+        container.appendChild(ruleWrapper);
+      };
+
+      setRule();
+
+      setInterval(function(){
+        setRule();
+      }, 60000);
+
+      </script>
+      <link href="https://fonts.googleapis.com/css?family=Baloo|Major+Mono+Display|Roboto+Mono" rel="stylesheet">
+
+    <style>
+
+        @-webkit-keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+        @-moz-keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+        @keyframes AnimationName { 
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+
+        body {
+            background: linear-gradient(90deg, #4db4cc, #808ed7);
+            background-size: 400% 400%;
+            -webkit-animation: AnimationName 5s ease infinite;
+            -moz-animation: AnimationName 5s ease infinite;
+            animation: AnimationName 5s ease infinite;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-family: 'Baloo', helvetica, arial, sans-serif;
+            line-height: 1.5;
+        }
+        #container {
+            max-width: 100%;
+            width: 50%;
+        }
+        .rule {
+            border-left: 6px solid #ffc107;
+            padding-left: 2rem;
+            color: #FFFFFF;
+            font-size: 2.8em;
+            line-height: 1.2;
+        }
+        .code {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.12);
+            border-radius: 2px;
+            font-family: 'Roboto Mono', Courier, monospace;
+            font-size: 1.4em;
+            list-style: none;
+            margin-top: 3em;
+            padding-left: 0;
+            overflow: hidden;
+        }
+        .code li {
+            background-color: #fffce5;
+            padding: 0.5em;
+        }
+        .code li:nth-child(odd) {
+            background: #fff2c3;
+        }
+        .code .comment {
+            color: #a89b82;
+        }
+
+        .code-inline {
+            color: #fff9e1;
+            font-family: 'Major Mono Display', Courier, monospace;
+            font-size: 32px;
+        }
+    </style>
+</body>
+</html>
